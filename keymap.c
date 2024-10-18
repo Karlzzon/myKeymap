@@ -62,15 +62,19 @@ uint32_t timer = 0;
 uint8_t current_frame = 0;
 static void render_animation(void){
     // Array of all bitmaps for convenience. (Total bytes used to store images in PROGMEM = 1584)
-    const char* epd_bitmap_allArray[3] = {
-        epd_bitmap_ghost1,
-        epd_bitmap_ghost2,
-        epd_bitmap_ghost3
+    const char* epd_bitmap_allArray[5] = {
+        sam1,
+        sam2,
+        sam3,
+        sam4,
+        sam5,
     };
-    uint16_t frame_sizes[3] = {
-        sizeof(epd_bitmap_ghost1),
-        sizeof(epd_bitmap_ghost2),
-        sizeof(epd_bitmap_ghost3)
+    uint16_t frame_sizes[5] = {
+        sizeof(sam1),
+        sizeof(sam2),
+        sizeof(sam3),
+        sizeof(sam4),
+        sizeof(sam5),
     };
     // Run animation
     if (timer_elapsed(timer) > FRAME_DURATION) {
