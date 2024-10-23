@@ -1,10 +1,5 @@
 #pragma once
 
-//#define USE_MATRIX_I2C
-
-//#define QUICK_TAP_TERM 0
-//#define TAPPING_TERM 100
-
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
