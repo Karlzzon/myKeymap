@@ -1,4 +1,3 @@
-#include "aliases.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3(
@@ -91,16 +90,16 @@ static void render_animation(void){
 bool oled_task_user() {
     if(is_keyboard_master()){
         switch (get_highest_layer(layer_state)){
-        case _BASE:
+        case 0:
             oled_write_raw_P(im0, sizeof(im0));
             break;
-        case _FIRST:
+        case 1:
             oled_write_raw_P(im1, sizeof(im1));
             break;
-        case _SECOND:
+        case 2:
             oled_write_raw_P(im2, sizeof(im2));
             break;
-        case _THIRD:
+        case 3:
             oled_write_raw_P(im3, sizeof(im3));
             break;
         }
