@@ -1,4 +1,9 @@
 #include QMK_KEYBOARD_H
+//Swedish letters for US Eng os layout
+#define KC_Å KC_LALT(KC_P)  // å
+#define KC_Ä KC_LALT(KC_Q)  // ä
+#define KC_Ö KC_LALT(KC_O)  // ö
+
 // GACS is for those who reply to GASC’s bullet point 1 
 // by saying that enabling a greater range of one-handed Ctrl+Letter 
 // keyboard shortcuts is more important than a greater range 
@@ -16,6 +21,8 @@
 #define CTL_K RCTL_T(KC_K)
 #define ALT_L LALT_T(KC_L)
 #define GUI_SCLN RGUI_T(KC_SCLN)
+
+// Shift should still be bound somewhere to type a series of capitalized letters
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
