@@ -1,4 +1,22 @@
 #include QMK_KEYBOARD_H
+// GACS is for those who reply to GASC’s bullet point 1 
+// by saying that enabling a greater range of one-handed Ctrl+Letter 
+// keyboard shortcuts is more important than a greater range 
+// of one-handed capital letters you can type.
+
+//GACS
+// Left-hand home row mods
+#define GUI_A LGUI_T(KC_A)
+#define ALT_S LALT_T(KC_S)
+#define CTL_D LCTL_T(KC_D)
+#define SFT_F LSFT_T(KC_F)
+
+// Right-hand home row mods
+#define SFT_J RSFT_T(KC_J)
+#define CTL_K RCTL_T(KC_K)
+#define ALT_L LALT_T(KC_L)
+#define GUI_SCLN RGUI_T(KC_SCLN)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3(
