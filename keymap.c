@@ -4,6 +4,10 @@
 #define KC_Ä KC_LALT(KC_Q)  // ä
 #define KC_Ö KC_LALT(KC_O)  // ö
 
+enum custom_keycodes {          
+  ALT_TAB = SAFE_RANGE,
+};
+
 // GACS is for those who reply to GASC’s bullet point 1 
 // by saying that enabling a greater range of one-handed Ctrl+Letter 
 // keyboard shortcuts is more important than a greater range 
@@ -26,6 +30,11 @@
 #define SFT_TAB LSFT_T(KC_TAB)
 #define RALT_ENTER RALT_T(KC_ENT) // For RALT leader key in glaze etc. 
 
+// To use in the Super Alt Tab
+bool is_alt_tab_active = false; // ADD this near the beginning of keymap.c
+uint16_t alt_tab_timer = 0;     // we will be using them soon.
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -33,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_Ä,    GUI_A,   ALT_S,   CTL_D,   SFT_F,    KC_G,                         KC_H,   SFT_J,  CTL_K,  ALT_L,  GUI_SCLN,   KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_Ö,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, _______,
+      KC_Ö,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, ALT_TAB,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           SFT_TAB,   MO(1),  KC_SPC,   KC_BSPC , MO(2), RALT_ENTER
                                       //`--------------------------'  `--------------------------'
@@ -175,6 +184,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         unregister_code(registered_key);
       }
     } return false;
+
+
+//This macro will register KC_LALT and tap KC_TAB, then wait for 1000ms. 
+//If the key is tapped again, it will send another KC_TAB; 
+//if there is no tap, KC_LALT will be unregistered, thus allowing you to cycle through windows.
+  
+  switch (keycode) { // This will do most of the grunt work with the keycodes.
+    case ALT_TAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        }
+        alt_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      break;
+  }
+  return true;
+}
+
+void matrix_scan_user(void) { // The very important timer.
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > 1000) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
+    }
+  }
+
 
     // Other macros...
   }
