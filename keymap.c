@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
-#define FRAME_DURATION 333
+#define FRAME_DURATION 250
 uint32_t timer = 0;
 uint8_t current_frame = 0;
 static void render_animation(void){
