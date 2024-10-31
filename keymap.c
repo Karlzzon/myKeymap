@@ -153,3 +153,11 @@ void matrix_scan_user(void) {
         }
     }
 }
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_BSPC:
+            return 120;
+        default:
+            return 0;
+    }
+}
