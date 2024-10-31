@@ -28,9 +28,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       ALT_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,     KC_U,    KC_I,    KC_O,   KC_P,   KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,  GUI_A,   ALT_S,   CTL_D,   SFT_F,    KC_G,                         KC_H,   SFT_J,  CTL_K,  ALT_L,  GUI_SCLN,  KC_QUOT,
+      KC_LCTL,  GUI_A,   ALT_S,   CTL_D,   SFT_F,    KC_G,                         KC_H,   SFT_J,  CTL_K,  ALT_L,  GUI_SCLN,  KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, KC_LBRC,
+      _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, KC_LBRC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           SFT_TAB,   MO(1),  KC_SPC,   KC_BSPC , MO(2), RALT_ENTER
                                       //`--------------------------'  `--------------------------'
@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_DEL,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LALT, KC_PSCR, _______, KC_MPRV, KC_MPLY, KC_MNXT,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, _______, _______,
+      KC_LCTL, KC_PSCR, _______, KC_MPRV, KC_MPLY, KC_MNXT,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
+      KC_LALT, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           SFT_TAB, _______,  KC_SPC,     KC_BSPC,   MO(3), RALT_ENTER
                                       //`--------------------------'  `--------------------------'
@@ -129,25 +129,7 @@ bool oled_task_user() {
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   switch (keycode) {
-    case KC_BSPC: {
-      if (record->event.pressed) {  
-        const uint8_t mods = get_mods();
-#ifndef NO_ACTION_ONESHOT
-        uint8_t shift_mods = (mods | get_oneshot_mods()) & MOD_MASK_SHIFT;
-#else
-        uint8_t shift_mods = mods & MOD_MASK_SHIFT;
-#endif
-        if (shift_mods == MOD_MASK_SHIFT) {
-          tap_code(KC_DEL);
-        }
-        else {
-          tap_code(KC_BSPC);
-        }
-      }
-      return false;
-    }
-
-    case ALT_TAB:
+     case ALT_TAB:
       if (record->event.pressed) {
         if (!is_alt_tab_active) {
           is_alt_tab_active = true;
