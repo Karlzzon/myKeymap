@@ -1,8 +1,4 @@
 #include QMK_KEYBOARD_H
-// Swedish letters for US Eng OS layout
-#define KC_AA LALT(KC_P)  // å
-#define KC_AE LALT(KC_Q)  // ä
-#define KC_OE LALT(KC_O)  // ö
 
 enum custom_keycodes {          
   ALT_TAB = SAFE_RANGE,
@@ -30,11 +26,11 @@ uint16_t alt_tab_timer = 0;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_AA,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,     KC_U,    KC_I,    KC_O,   KC_P,   KC_ESC,
+      ALT_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,     KC_U,    KC_I,    KC_O,   KC_P,   KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_AE,    GUI_A,   ALT_S,   CTL_D,   SFT_F,    KC_G,                         KC_H,   SFT_J,  CTL_K,  ALT_L,  GUI_SCLN,  KC_QUOT,
+      _______,  GUI_A,   ALT_S,   CTL_D,   SFT_F,    KC_G,                         KC_H,   SFT_J,  CTL_K,  ALT_L,  GUI_SCLN,  KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_OE,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, ALT_TAB,
+      _______,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, KC_LBRC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           SFT_TAB,   MO(1),  KC_SPC,   KC_BSPC , MO(2), RALT_ENTER
                                       //`--------------------------'  `--------------------------'
